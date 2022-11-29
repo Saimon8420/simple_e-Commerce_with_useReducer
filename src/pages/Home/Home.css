@@ -1,0 +1,30 @@
+#all-products {
+    display: grid;
+    grid-template-columns: auto 250px;
+    gap: 10px;
+    padding: 5px;
+}
+
+#all-products button {
+    background-color: orange;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#all-products button:hover {
+    color: white;
+}
+
+#product {
+    border: 2px solid sandybrown;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#cart {
+    background-color: antiquewhite;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
