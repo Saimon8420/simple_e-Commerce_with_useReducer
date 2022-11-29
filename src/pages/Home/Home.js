@@ -20,7 +20,12 @@ const reduce = (state, action) => {
     else if (action.type === 'decrease') {
         if (matched) {
             const exist = state.added.map(eachMatch => eachMatch.id === action.id ? { ...matched, quantity: matched.quantity - 1 } : eachMatch);
-
+            if (matched.quantity <= 1) {
+                console.log('quantity is 0');
+                const exist = state.added.filter(eachMatch => eachMatch.id !== action.id)
+                // console.log(exist);
+                return { added: [...exist] };
+            }
             return { added: [...exist] };
         }
     }
@@ -50,7 +55,7 @@ const Home = () => {
                                 <span style={{
                                     'backgroundColor': 'red', 'color': 'white',
                                     'padding': '2px',
-                                    'border-radius': '5px'
+                                    'borderRadius': '5px'
                                 }}>id:{product.id}</span>
                             </p>
                             <button
