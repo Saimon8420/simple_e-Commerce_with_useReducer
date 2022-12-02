@@ -23,7 +23,6 @@ const reduce = (state, action) => {
             if (matched.quantity <= 1) {
                 console.log('quantity is 0');
                 const exist = state.added.filter(eachMatch => eachMatch.id !== action.id)
-                // console.log(exist);
                 return { added: [...exist] };
             }
             return { added: [...exist] };
@@ -33,7 +32,6 @@ const reduce = (state, action) => {
 
 const Home = () => {
     const [products, setProducts] = useState([]);
-
     const [cart, dispatch] = useReducer(reduce, initialState);
 
     useEffect(() => {
@@ -42,6 +40,10 @@ const Home = () => {
             .then(data => setProducts(data));
     }, []);
 
+    const calcTotal = cart.added.map(eachItem => eachItem.price * eachItem.quantity);
+
+    const reducer = (x, y) => x + y;
+    const grandTotal = calcTotal.reduce(reducer, 0);
     return (
         <div>
             <h2>Simple E-commerce with useReducer</h2>
@@ -65,7 +67,7 @@ const Home = () => {
                     }
                 </div>
                 <div id='cart'>
-                    <h4>Added Items</h4>
+                    <h4>{cart.added.length ? 'Added Items' : 'Added Items 0'}</h4>
                     {
                         cart.added.map(product => <div id='product' key={product.id} >
                             <h4>Name: {product.name}</h4>
@@ -88,6 +90,8 @@ const Home = () => {
                             </p>
                         </div>)
                     }
+                    <hr />
+                    <h4>Grant-total: ${grandTotal}</h4>
                 </div>
             </div>
         </div>
